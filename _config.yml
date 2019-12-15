@@ -1,45 +1,32 @@
-title: 小白梦想家
-name: 小白
-email: 3285840393@qq.com
-description: 待写
+title: XiaoBaiDreamer-Blog
+description: "小白梦想家"
+author:
+  name: "XiaoBaiDreamer"
+  email: "3285840393@qq.com"
+  url: "https://ashishchaudhary.in/hacker-blog"
 
-baseurl: "/blog"
-url: ""
+baseurl: /
 
-display_footer: inital  #change this to 'none' if you want to hide the footer copyright text
+source: .
+destination: ./_site
+permalink: /:title
+paginate: 3
+paginate_path: /page/:num/
 
-parallax_image_one: assets/images/startup3.jpg # These are the images used for the parallax background
-parallax_image_two: assets/images/startup3.jpg
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
 
-portfolio_heading: Portfolio
-portfolio_type: cards
-
-icon_size: 50 # font-size of icons in px
-colored: colored # Leave blank for black and white icons
-
-project_button: Github
-
-github: https://github.com/jameshamann/jekyll-material-theme
-medium: https://medium.com
-
-baseurl: # if your site is located at /blog or /home, enter it here, otherwise leave it empty
-url: http://localhost:4000/ #the url of your site
-
-# Google tracking, if both are filled, tag manager will prevail. Set up GA through GTM in that case
-tag_manager_id: # This looks something like GTM-XXXXXXX
-google_analytics_tracking_id: # This looks something like UA-000000000-0 Head over to https://analytics.google.com/ to setup.
-
-cookies_banner: show # The value "show" will show the cookies banner, the value "none" will hide the banner.
-
-cookie_accept_message: Thanks!
-
-syntax_highlighting: true # include the css for syntax highlighting
-
-# Build settings
-markdown: kramdown
-# theme: minima
-permalink: pretty
+future: true
 plugins:
-  - jekyll-feed
-  - jekyll-assets
-  - jekyll-minifier
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-sitemap
+
+# Custom variables
+owner : "XiaoBaiDreamer"
+year : "2019"
