@@ -2,13 +2,13 @@
 title: Spring Cloud 底层原理
 published: true
 ---
-## [](#header-1)概述
+## 概述
 
 毫无疑问，Spring Cloud是目前微服务架构领域的翘楚，无数的书籍博客都在讲解这个技术。不过大多数讲解还停留在对Spring Cloud功能使用的层面，其底层的很多原理，很多人可能并不知晓。因此本文将通过大量的手绘图，给大家谈谈Spring Cloud微服务架构的底层原理。
 
 实际上，Spring Cloud是一个全家桶式的技术栈，包含了很多组件。本文先从其最核心的几个组件入手，来剖析一下其底层的工作原理。也就是Eureka、Ribbon、Feign、Hystrix、Zuul这几个组件。
 
-## [](#header-1)业务场景介绍
+## 业务场景介绍
 
 先来给大家说一个业务场景，假设咱们现在开发一个电商网站，要实现支付订单的功能，流程如下：
 
@@ -32,7 +32,7 @@ published: true
 
 好！有了业务场景之后，咱们就一起来看看Spring Cloud微服务架构中，这几个组件如何相互协作，各自发挥的作用以及其背后的原理。
 
-## [](#header-2)核心组件：Eureka
+## 核心组件：Eureka
 
 咱们来考虑第一个问题：订单服务想要调用库存服务、仓储服务，或者是积分服务，怎么调用？
 
@@ -54,7 +54,7 @@ published: true
 - Eureka Client：负责将这个服务的信息注册到Eureka Server中
 - Eureka Server：注册中心，里面有一个注册表，保存了各个服务所在的机器和端口号
 
-## [](#header-2)核心组件：Feign
+## 核心组件：Feign
 
 现在订单服务确实知道库存服务、积分服务、仓库服务在哪里了，同时也监听着哪些端口号了。但是新问题又来了：难道订单服务要自己写一大堆代码，跟其他服务建立网络连接，然后构造一个复杂的请求，接着发送请求过去，最后对返回的响应结果再写一大堆代码来处理吗？
 
@@ -81,7 +81,7 @@ published: true
 
 ![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud5.png?raw=true)
 
-## [](#header-2)核心组件：Ribbon
+## 核心组件：Ribbon
 
 说完了Feign，还没完。现在新的问题又来了，如果人家库存服务部署在了5台机器上，如下所示：
 
@@ -107,7 +107,7 @@ Ribbon的负载均衡默认使用的最经典的Round Robin轮询算法。这是
 
 ![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud6.png?raw=true)
 
-## [](#header-2)核心组件：Hystrix
+## 核心组件：Hystrix
 
 在微服务架构里，一个系统会有很多的服务。以本文的业务场景为例：订单服务在一个业务流程里需要调用三个服务。现在假设订单服务自己最多只有100个线程可以处理请求，然后呢，积分服务不幸的挂了，每次订单服务调用积分服务的时候，都会卡住几秒钟，然后抛出—个超时异常。
 
@@ -143,7 +143,7 @@ Ribbon的负载均衡默认使用的最经典的Round Robin轮询算法。这是
 
 ![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud8.png?raw=true)
 
-## [](#header-2)核心组件：Zuul
+## 核心组件：Zuul
 
 说完了Hystrix，接着给大家说说最后一个组件：Zuul，也就是微服务网关。这个组件是负责网络路由的。不懂网络路由？行，那我给你说说，如果没有Zuul的日常工作会怎样？
 
