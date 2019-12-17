@@ -89,7 +89,7 @@ innodb的所有数据文件（后缀为ibd的文件），它的大小始终都�
 
 ![mysql_bplus_tree_index5](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index5.png?raw=true)
 
-![mysql_bplus_tree_index6](C:\Users\Administrator\Desktop\博客\png\mysql_b+_index\mysql_bplus_tree_index6.png)
+![mysql_bplus_tree_index6](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index6.png?raw=true)
 
 可以看出数据库dbt3下的customer表、lineitem表主键索引根页的page number均为3，而其他的二级索引page number为4
 
