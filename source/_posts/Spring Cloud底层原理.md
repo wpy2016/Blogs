@@ -29,7 +29,7 @@ tags:
 
 下图这张图，清晰表明了各服务间的调用过程：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud1.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud1.png?raw=true)
 
 好！有了业务场景之后，咱们就一起来看看Spring Cloud微服务架构中，这几个组件如何相互协作，各自发挥的作用以及其背后的原理。
 
@@ -42,7 +42,7 @@ tags:
 
 咱们来看看下面的这张图，结合图来仔细剖析一下整个流程：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud2.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud2.png?raw=true)
 
 如上图所示，库存服务、仓储服务、积分服务中都有一个Eureka Client组件，这个组件专门负责将这个服务的信息注册到Eureka Server中。说白了，就是告诉Eureka Server，自己在哪台机器上，监听着哪个端口。而Eureka Server是一个注册中心，里面有一个注册表，保存了各服务所在的机器和端口号。
 
@@ -63,13 +63,13 @@ tags:
 
 友情提示，前方高能：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud3.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud3.png?raw=true)
 
 看完上面那一大段代码，有没有感到后背发凉、一身冷汗？实际上你进行服务间调用时，如果每次都手写代码，代码量比上面那段要多至少几倍，所以这个事儿压根儿就不是地球人能干的。
 
 既然如此，那怎么办呢？别急，Feign早已为我们提供好了优雅的解决方案。来看看如果用Feign的话，你的订单服务调用库存服务的代码会变成啥样？
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud4.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud4.png?raw=true)
 
 看完上面的代码什么感觉？是不是感觉整个世界都干净了，又找到了活下去的勇气！没有底层的建立连接、构造请求、解析响应的代码，直接就是用注解定义一个 FeignClient接口，然后调用那个接口就可以了。人家Feign Client会在底层根据你的注解，跟你指定的服务建立连接、构造请求、发起靕求、获取响应、解析响应，等等。这一系列脏活累活，人家Feign全给你干了。
 
@@ -80,7 +80,7 @@ tags:
 - Feign的动态代理会根据你在接口上的@RequestMapping等注解，来动态构造出你要请求的服务的地址。
 - 最后针对这个地址，发起请求、解析响应
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud5.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud5.png?raw=true)
 
 ## 核心组件：Ribbon
 
@@ -106,7 +106,7 @@ Ribbon的负载均衡默认使用的最经典的Round Robin轮询算法。这是
 
 对上述整个过程，再来一张图，帮助大家更深刻的理解：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud6.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud6.png?raw=true)
 
 ## 核心组件：Hystrix
 
@@ -119,7 +119,7 @@ Ribbon的负载均衡默认使用的最经典的Round Robin轮询算法。这是
 
 上面这个，就是微服务架构中恐怖的服务雪崩问题，如下图所示：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud7.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud7.png?raw=true)
 
 如上图，这么多服务互相调用，要是不做任何保护的话，某一个服务挂了，就会引起连锁反应，导致别的服务也挂。比如积分服务挂了，会导致订单服务的线程全部卡在请求积分服务这里，没有一个线程可以工作，瞬间导致订单服务也挂了，别人请求订单服务全部会卡住，无法响应。
 
@@ -142,7 +142,7 @@ Ribbon的负载均衡默认使用的最经典的Round Robin轮询算法。这是
 
 为帮助大家更直观的理解，接下来用一张图，梳理一下Hystrix隔离、熔断和降级的全流程：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud8.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud8.png?raw=true)
 
 ## 核心组件：Zuul
 
@@ -168,7 +168,7 @@ Ribbon的负载均衡默认使用的最经典的Round Robin轮询算法。这是
 
 文字总结还不够直观？没问题！我们将Spring Cloud的5个核心组件通过一张图串联起来，再来直观的感受一下其底层的架构原理：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/springcloud_underlying_principle/springcloud9.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/springcloud_underlying_principle/springcloud9.png?raw=true)
 
 
 

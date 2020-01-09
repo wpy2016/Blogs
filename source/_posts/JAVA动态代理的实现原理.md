@@ -117,13 +117,13 @@ finish
 
 上面这个例子类图如下：
 
-![java_dynamic_png1](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/java_dynamic_proxy/java_dynamic_png1.png?raw=true)
+![java_dynamic_png1](https://github.com/wpy2016/Blogs/blob/master/imgs/java_dynamic_proxy/java_dynamic_png1.png?raw=true)
 
 
 
 其中类$Proxy0是动态代理实现原理的关键，由ProxyClassFactory生成。对应时序图如下：
 
-![java_dynamic_png2](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/java_dynamic_proxy/java_dynamic_png2.png?raw=true)
+![java_dynamic_png2](https://github.com/wpy2016/Blogs/blob/master/imgs/java_dynamic_proxy/java_dynamic_png2.png?raw=true)
 
 
 
@@ -204,7 +204,7 @@ public final class Proxy0 extends Proxy implements IQuery {
 
 由此可以看到Proxy.newProxyInstance返回实例的调用，本质上如下的调用关系：
 
-![java_dynamic_png3](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/java_dynamic_proxy/java_dynamic_png3.png?raw=true)
+![java_dynamic_png3](https://github.com/wpy2016/Blogs/blob/master/imgs/java_dynamic_proxy/java_dynamic_png3.png?raw=true)
 
 
 

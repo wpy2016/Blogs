@@ -15,7 +15,7 @@ tags:
 
 传统关系型数据库(Oracle/MySQL/PostgreSQL…)，其主要的索引结构，使用的都是B+树。更有甚者，InnoDB引擎的表数据，整个都是以B+树的组织形式存放的。下图，是一个经典的B+树组织结构图(2层B+树，每个页面的扇出为4)：
 
-![bplustree_bug0](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug0.png?raw=true)
+![bplustree_bug0](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug0.png?raw=true)
 
 **注意：**
 
@@ -31,11 +31,11 @@ tags:
 
 插入记录6，新的B+树结构如下：
 
-![bplustree_bug1](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug1.png?raw=true)
+![bplustree_bug1](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug1.png?raw=true)
 
 插入记录7，由于叶页面中只能存放4条记录，插入记录7，导致叶页面分裂，产生一个新的叶页面
 
-![bplustree_bug2](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug2.png?raw=true)
+![bplustree_bug2](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug2.png?raw=true)
 
 传统B+树页面分裂操作分析：
 
@@ -50,7 +50,7 @@ tags:
 
 由于传统50%分裂的策略，有不足之处，因此，目前所有的关系型数据库，包括Oracle/InnoDB/PostgreSQL，以及本人以前参与研发的Oscar数据库，目前正在研发的NTSE、TNT存储引擎，都针对B+树索引的递增/递减插入进行了优化。经过优化，以上的B+树索引，在记录6插入完毕，记录7插入引起分裂之后，新的B+树结构如下图所示
 
-![bplustree_bug3](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug3.png?raw=true)
+![bplustree_bug3](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug3.png?raw=true)
 
 对比上下两个插入记录7之后，B+树索引的结构图，可以发现二者有很多的不同之处：
 
@@ -75,7 +75,7 @@ tags:
 
 考虑以下的一个B+树，已有的用户数据是1，2，3，4，5，6，100，并且在插入记录100之后，引起索引页面分裂，记录100在分裂后被插入到新的页面
 
-![bplustree_bug4](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug4.png?raw=true)
+![bplustree_bug4](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug4.png?raw=true)
 
 由于插入100能够满足递增的判断条件，因此采用了优化分裂策略，分裂不移动数据，新纪录100插入到新页面之中，原有页面的最后插入位置仍旧是6号记录不变，原有页面仍旧保持递增的插入标识不变。
 
@@ -83,13 +83,13 @@ tags:
 
 插入记录9后的B+树结构
 
-![bplustree_bug5](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug5.png?raw=true)
+![bplustree_bug5](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug5.png?raw=true)
 
 由于InnoDB的B+树，上层节点保存的是下层页面中的最小值(Low Key)，因此记录9仍旧会插入到【3，4，5，6】页面，此时页面已满，需要分裂。而且判断出记录9仍旧满足页面中的递增判断条件(Last_Insert_Pos = 6，9插入到6之后，并且原来是递增插入的)。因此，采用优化的分裂策略，产生新的页面插入记录9，原有页面记录保持不变
 
 插入记录8后的B+树结构：
 
-![bplustree_bug6](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug6.png?raw=true)
+![bplustree_bug6](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug6.png?raw=true)
 
 插入记录7，也一样。采用优化的分裂策略，记录7独占一个页面
 
@@ -106,6 +106,6 @@ tags:
 
 插入100，9，8后的B+树：
 
-![bplustree_bug7](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug7.png?raw=true)
+![bplustree_bug7](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_bug/bplustree_bug7.png?raw=true)
 
 插入100时，移动原有页面最后一条记录到新的页面(将6移动到新页面)，此时新页面中的记录为【6，100】。接下来插入9，8，都会插入到新的页面之中，不会产生分裂操作，空间利用率提高，减少了索引页面分裂，解决了Bug#67718的问题。

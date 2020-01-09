@@ -12,19 +12,19 @@ tags:
 
 文件系统中一个文件大小只有1个字节，但不得不占磁盘上4KB的空间
 
-![mysql_bplus_tree_index0](![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index0.png?raw=true)
+![mysql_bplus_tree_index0](![](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index0.png?raw=true)
 
 innodb的所有数据文件（后缀为ibd的文件），它的大小始终都是16384（16k）的整数倍
 
-![mysql_bplus_tree_index1](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index1.png?raw=true)
+![mysql_bplus_tree_index1](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index1.png?raw=true)
 
 磁盘扇区、文件系统、InnoDB存储引擎都有各自的最小存储单元
 
-![mysql_bplus_tree_index2](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index2.png?raw=true)
+![mysql_bplus_tree_index2](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index2.png?raw=true)
 
 在MySQL中我们的InnoDB页的大小默认是16k，当然也可以通过参数设置
 
-![mysql_bplus_tree_index3](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index3.png?raw=true)
+![mysql_bplus_tree_index3](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index3.png?raw=true)
 
 数据表中的数据都是存储在页中的，所以一个页中能存储多少行数据呢？假设一行数据的大小是1k，那么一个页可以存放16行这样的数据
 
@@ -34,7 +34,7 @@ innodb的所有数据文件（后缀为ibd的文件），它的大小始终都�
 
 所以人们想了一个办法，用B+树的方式组织这些数据。如图所示
 
-![mysql_bplus_tree_index4](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index4.png?raw=true)
+![mysql_bplus_tree_index4](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index4.png?raw=true)
 
 我们先将数据记录按主键进行排序，分别存放在不同的页中（为了便于理解我们这里一个页中只存放3条记录，实际情况可以存放很多）
 
@@ -90,9 +90,9 @@ innodb的所有数据文件（后缀为ibd的文件），它的大小始终都�
 
 在实际操作之前，你可以通过InnoDB元数据表确认主键索引根页的page number为3，你也可以从《InnoDB存储引擎》这本书中得到确认
 
-![mysql_bplus_tree_index5](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index5.png?raw=true)
+![mysql_bplus_tree_index5](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index5.png?raw=true)
 
-![mysql_bplus_tree_index6](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index6.png?raw=true)
+![mysql_bplus_tree_index6](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index6.png?raw=true)
 
 可以看出数据库dbt3下的customer表、lineitem表主键索引根页的page number均为3，而其他的二级索引page number为4
 
@@ -106,7 +106,7 @@ innodb的所有数据文件（后缀为ibd的文件），它的大小始终都�
 
 接下来我们用hexdump工具，查看表空间文件指定偏移量上的数据
 
-![mysql_bplus_tree_index7](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index6.png?raw=true)
+![mysql_bplus_tree_index7](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index6.png?raw=true)
 
 **linetem表的page level为2，B+树高度为page level+1=3；**
 
@@ -116,7 +116,7 @@ innodb的所有数据文件（后缀为ibd的文件），它的大小始终都�
 
 这三张表的数据量如下
 
-![mysql_bplus_tree_index8](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index7.png?raw=true)
+![mysql_bplus_tree_index8](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_bplus_index_structure/mysql_bplus_tree_index7.png?raw=true)
 
 lineitem表的数据行数为600多万，B+树高度为3，customer表数据行数只有15万，B+树高度也为3。可以看出尽管数据量差异较大，这两个表树的高度都是3
 

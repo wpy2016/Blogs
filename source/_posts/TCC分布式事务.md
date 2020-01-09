@@ -7,7 +7,7 @@ tags:
 
 咱们先来看看业务场景，假设你现在有一个电商系统，里面有一个支付订单的场景。
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction1.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction1.png?raw=true)
 
 那对一个订单支付之后，我们需要做下面的步骤：
 
@@ -34,7 +34,7 @@ tags:
 
 我们来看看下面的这个图，直观的表达了上述的过程：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction2.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction2.png?raw=true)
 
 所以说，我们有必要使用 TCC 分布式事务机制来保证各个服务形成一个整体性的事务。
 
@@ -44,7 +44,7 @@ tags:
 
 说了那么多，老规矩，给大家上一张图，大伙儿顺着图来直观的感受一下：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction3.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction3.png?raw=true)
 
 ## **落地实现 TCC 分布式事务**
 
@@ -124,7 +124,7 @@ public class OrderService {
 
 咱们来一起看看下面这张图，结合上面的文字，再来捋一捋整个过程
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction4.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction4.png?raw=true)
 
 ### **TCC 实现阶段二：Confirm**
 
@@ -163,7 +163,7 @@ public class OrderServiceConfirm {
 
 同样，给大家来一张图，顺着图一起来看看整个过程：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction5.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction5.png?raw=true)
 
 ### **TCC 实现阶段三：Cancel**
 
@@ -187,7 +187,7 @@ public class OrderServiceConfirm {
 
 大家看看下面的图，直观的感受一下：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction6.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction6.png?raw=true)
 
 ## **总结与思考**
 
@@ -230,7 +230,7 @@ public class OrderServiceConfirm {
 
 最后，再给大家来一张图，来看看给我们的业务，加上分布式事务之后的整个执行流程：
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction7.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction7.png?raw=true)
 
 不少大公司里，其实都是自己研发 TCC 分布式事务框架的，专门在公司内部使用，比如我们就是这样。
 
@@ -258,7 +258,7 @@ public class OrderServiceConfirm {
 
 这个时候，就要用上可靠消息最终一致性方案，来实现分布式事务。
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction8.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction8.png?raw=true)
 
 大家看上图，如果不考虑各种高并发、高可用等技术挑战的话，单从“可靠消息”以及“最终一致性”两个角度来考虑，这种分布式事务方案还是比较简单的。
 
@@ -371,7 +371,7 @@ MQ 一旦完全不可用，就会导致业务系统的各个服务之间无法�
 
 这套机制不算太复杂，可以非常简单有效的保证那位朋友公司的高可用保障场景，一旦 MQ 中间件出现故障，立马自动降级为备用方案。
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/tcc_transaction/tcc_transaction9.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/tcc_transaction/tcc_transaction9.png?raw=true)
 
 ### ①自行封装 MQ 客户端组件与故障感知
 

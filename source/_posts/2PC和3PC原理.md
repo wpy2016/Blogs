@@ -26,7 +26,7 @@ tags:
 
 #### 1、第一阶段：投票阶段
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/2pc_3pc/2pc1.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/2pc_3pc/2pc1.png?raw=true)
 
 第一阶段主要分为3步
 
@@ -48,7 +48,7 @@ tags:
 
 `成功条件`：所有参与者都返回Yes
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/2pc_3pc/2pc2.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/2pc_3pc/2pc2.png?raw=true)
 
 第二阶段主要分为两步
 
@@ -64,7 +64,7 @@ tags:
 
 `异常条件`：任何一个 **参与者** 向 **协调者** 反馈了 **No** 响应,或者等待超时之后,协调者尚未收到所有参与者的反馈响应
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/2pc_3pc/2pc3.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/2pc_3pc/2pc3.png?raw=true)
 
 异常流程第二阶段也分为两步
 
@@ -130,7 +130,7 @@ tags:
 
 之前2PC的一阶段是本地事务执行结束后，最后不Commit,等其它服务都执行结束并返回Yes，由协调者发生commit才真正执行commit。而这里的CanCommit指的是 **尝试获取数据库锁** 如果可以，就返回Yes
 
-![](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/2pc_3pc/3pc1.png?raw=true)
+![](https://github.com/wpy2016/Blogs/blob/master/imgs/2pc_3pc/3pc1.png?raw=true)
 
 这阶段主要分为2步
 
