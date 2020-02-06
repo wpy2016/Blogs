@@ -13,11 +13,11 @@ tags:
 
    举例说明：
 
-   ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base1.png?raw=true)
+   ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base1.png?raw=true)
 
    在上面的表中，“家庭信息”和“学校信息”列均不满足原子性的要求，故不满足第一范式，调整如下：
 
-   ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base2.png?raw=true)
+   ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base2.png?raw=true)
 
    可见，调整后的每一列都是不可再分的，因此满足第一范式（1NF）；
 
@@ -27,7 +27,7 @@ tags:
 
    举例说明：
 
-   ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base3.png?raw=true)
+   ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base3.png?raw=true)
 
    在上图所示的情况中，同一个订单中可能包含不同的产品，因此主键必须是“订单号”和“产品号”联合组成，
 
@@ -35,19 +35,19 @@ tags:
 
    这样就不满足第二范式的要求，调整如下，需分成两个表：
 
-    ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base4.png?raw=true) ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base5.png?raw=true)
+    ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base4.png?raw=true) ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base5.png?raw=true)
 
 3. 第三范式3NF：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）**需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关，间接相关的需要拆分，拆分后，一个表中不包含已在其他表中已包含的非主关键字信息**。
 
    举例说明：
 
-   ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base6.png?raw=true)
+   ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base6.png?raw=true)
 
    上表中，所有属性都完全依赖于学号，所以满足第二范式，但是“班主任性别”和“班主任年龄”直接依赖的是“班主任姓名”，
 
    而不是主键“学号”，所以需做如下调整：
 
-   ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base7.png?raw=true) ![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base8.png?raw=true)
+   ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base7.png?raw=true) ![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base8.png?raw=true)
 
 **4、巴斯-科德范式（BCNF）**：对第二范式与第三范式中设计规范要求加强。所有非主属性对每一个候选键都是完全函数依赖； 所有的主属性对每一个不包含它的候选键，也是完全函数依赖；没有任何属性完全函数依赖于非候选键的任何一组属性。
 
@@ -70,7 +70,7 @@ tags:
 
 基于此关系模式的关系（具体的数据）可能如图所示：
 
-![img](https://github.com/wpy2016/wpy2016.github.io/blob/master/imgs/mysql_base/mysql_base9.png?raw=true)
+![img](https://github.com/wpy2016/Blogs/blob/master/imgs/mysql_base/mysql_base9.png?raw=true)
 
 
 
