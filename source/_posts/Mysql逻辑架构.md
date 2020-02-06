@@ -4,9 +4,7 @@ tags:
 
   - Mysql
   - 数据库
-
-
-
+---
 ## Mysql逻辑架构
 
 大体来说，MySQL 可以分为 Server 层和存储引擎层两部分
